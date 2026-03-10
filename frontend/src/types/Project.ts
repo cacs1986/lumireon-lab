@@ -1,0 +1,20 @@
+// Define los estados posibles como un tipo literal estricto.
+// Esto evita errores de tipeo; no podrás asignar "Terminado" si el contrato exige "Cerrado".
+export type ProjectStatus = 'En evolución' | 'Cerrado' | 'Replanteado';
+
+export interface Project {
+  id: string;
+  title: string;
+  slug: string;
+  imagen_url?: string;      
+  repositorio_url?: string; 
+  codigo_snippet?: string;
+  context: string;
+  problem: string;
+  process: string;
+  difficulties: string;
+  learnings: string;
+  status: string;
+  tags: string[];
+  createdAt?: string;
+}

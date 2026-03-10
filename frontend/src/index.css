@@ -1,0 +1,37 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --color-bone: #F5F2ED;
+  --color-carbon: #1A1A1A; 
+  --color-gray-soft: #E8E4DE;
+  --color-gray-mid: #9A9A9A;
+  --color-gray-dark: #5A5A5A;
+  --color-orange: #E8692A;
+  --color-orange-subtle: #FDF0E8;
+
+  /* Definimos tu tipografía Sans Serif */
+  --font-sans: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+
+:root {
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  font-weight: 400;
+
+  color-scheme: light;
+  color: var(--color-carbon);
+  background-color: var(--color-bone);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Solo dejamos lo esencial, Tailwind se encarga del resto */
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
