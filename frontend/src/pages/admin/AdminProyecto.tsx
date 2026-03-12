@@ -3,8 +3,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import type { ProjectStatus } from "../../types/Project";
 import { projectService } from "../../servicios/projectService";
 import BotonSubirImagen from "../../components/admin/BotonSubirImagen";
+import toast from 'react-hot-toast';
 
-export default function ProyectoForm() {
+export default function AdminProyecto() {
   const navigate = useNavigate();
   const { id } = useParams(); 
   
@@ -23,7 +24,6 @@ export default function ProyectoForm() {
     learnings: ""
   });
 
-  // --- EFECTO PARA MODO EDICIÓN ---
   useEffect(() => {
     if (id) {
       const cargarProyecto = async () => {
@@ -76,10 +76,10 @@ export default function ProyectoForm() {
     }
 
     if (result.success) {
-      alert(id ? "Proyecto actualizado correctamente." : "Proyecto guardado en la base de datos.");
+      toast.success('¡Proyecto guardado con éxito!');
       navigate('/admin/dashboard'); 
     } else {
-      alert("Hubo un error. Revisa la consola.");
+      toast.error('Hubo un error al guardar el proyecto');
     }
   };
 

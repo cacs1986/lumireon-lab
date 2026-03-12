@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
@@ -6,6 +6,15 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const token = localStorage.getItem('lumireon_token');
+    if (token) {
+      // Si ya hay token, lo mandamos al panel sin escalas.
+      // El "replace: true" borra el historial para que no pueda volver atrás con la flecha del navegador.
+      navigate("/admin/dashboard", { replace: true }); 
+    }
+  }, [navigate]);
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,10 +33,8 @@ export default function Login() {
         throw new Error(data.error || "Error al iniciar sesión");
       }
 
-      // ¡Éxito! Guardamos la pulsera (token) en el navegador
       localStorage.setItem("lumireon_token", data.token);
       
-      // Y nos vamos al panel
       navigate("/admin/dashboard");
       
     } catch (err) {

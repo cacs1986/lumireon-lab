@@ -1,5 +1,3 @@
-// Define los estados posibles como un tipo literal estricto.
-// Esto evita errores de tipeo; no podrás asignar "Terminado" si el contrato exige "Cerrado".
 export type ProjectStatus = 'En evolución' | 'Cerrado' | 'Replanteado';
 
 export interface Project {

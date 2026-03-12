@@ -1,28 +1,42 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-
-// Layouts
+import { Toaster } from "react-hot-toast";
 import Layout from "./components/layout/Layout";
 import AdminLayout from "./components/layout/AdminLayout";
-
-// Páginas Públicas
 import Inicio from "./pages/public/Inicio";
 import Laboratorio from "./pages/public/Laboratorio";
 import ProyectoDetalle from "./pages/public/ProyectoDetalle";
 import Notas from "./pages/public/Notas";
 import Materiales from "./pages/public/Materiales";
 import Sobre from "./pages/public/Sobre";
-
-// Páginas Admin
 import Login from "./pages/admin/Login";
 import Dashboard from "./pages/admin/Dashboard";
-import ProyectoForm from "./pages/admin/ProyectoForm";
+import AdminProyecto from "./pages/admin/AdminProyecto";
+import AdminNotas from "./pages/admin/AdminNotas";
+import AdminMateriales from "./pages/admin/AdminMateriales";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 export default function App() {
   return (
     <BrowserRouter>
+
+    <Toaster 
+        position="bottom-right" 
+        toastOptions={{
+          style: {
+            background: '#1A1A1A', 
+            color: '#F5F2ED',      
+            fontFamily: 'sans-serif',
+          },
+          success: {
+            iconTheme: {
+              primary: '#e17b48', 
+              secondary: '#F4F4F4',
+            },
+          },
+        }} 
+      />
+
       <Routes>
-        {/* === RAMA PÚBLICA === */}
         <Route path="/" element={<Layout />}>
           <Route index element={<Inicio />} />
           <Route path="laboratorio" element={<Laboratorio />} />
@@ -32,14 +46,15 @@ export default function App() {
           <Route path="sobre" element={<Sobre />} />
         </Route>
 
-        {/* === RAMA ADMIN === */}
         <Route path="/admin" element={<AdminLayout />}>
           <Route index element={<Login />} />
           
           <Route element={<ProtectedRoute />}>
             <Route path="dashboard" element={<Dashboard />} /> 
-            <Route path="proyecto/nuevo" element={<ProyectoForm />} />
-            <Route path="proyecto/editar/:id" element={<ProyectoForm />} />
+            <Route path="proyecto/nuevo" element={<AdminProyecto />} />
+            <Route path="proyecto/editar/:id" element={<AdminProyecto />} />
+            <Route path="notas" element={<AdminNotas />} />
+            <Route path="materiales" element={<AdminMateriales />} />
           </Route>
           
         </Route>

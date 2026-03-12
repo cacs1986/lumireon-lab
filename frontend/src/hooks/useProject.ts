@@ -9,7 +9,6 @@ export function useProject(slug: string | undefined) {
 
   useEffect(() => {
     const fetchProject = async () => {
-      // Si por alguna razón la URL no tiene slug, cortamos la ejecución
       if (!slug) {
         setError('URL inválida. Falta el identificador del proyecto.');
         setLoading(false);
@@ -20,7 +19,6 @@ export function useProject(slug: string | undefined) {
         setLoading(true);
         setError(null);
         
-        // Llamamos a la ruta GET /api/projects/:slug que hicimos en el backend
         const data = await projectService.getBySlug(slug);
         
         if (data) {

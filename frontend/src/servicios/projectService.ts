@@ -1,10 +1,8 @@
 import type{ Project } from '../types/Project';
 
-// Cambia la URL fija por esto:
 const API_URL = import.meta.env.VITE_API_URL + '/projects';
 
 export const projectService = {
-  // 1. Obtener todos los proyectos
   getAll: async (): Promise<Project[]> => {
     try {
       const response = await fetch(API_URL);
@@ -16,7 +14,6 @@ export const projectService = {
     }
   },
 
-  // 2. Obtener un proyecto por slug
   getBySlug: async (slug: string): Promise<Project | undefined> => {
     try {
       const response = await fetch(`${API_URL}/${slug}`);
@@ -28,7 +25,6 @@ export const projectService = {
     }
   },
 
-  // 3. Crear 
   create: async (projectData: Omit<Project, 'id' | 'createdAt'>): Promise<{ success: boolean; id?: string }> => {
     try {
       const token = localStorage.getItem('lumireon_token');
@@ -36,14 +32,12 @@ export const projectService = {
         method: 'POST',
         headers: { 
           'Content-Type': 'application/json',
-          // 2. FUNDAMENTAL: Adjuntamos el token en la cabecera
           'Authorization': `Bearer ${token}` 
         },
         body: JSON.stringify(projectData),
       });
 
       if (!response.ok) {
-        // Leemos la respuesta del servidor
         const errorText = await response.text();
         console.error("CÓDIGO HTTP:", response.status);
         console.error("MOTIVO DEL RECHAZO:", errorText);
@@ -59,7 +53,6 @@ export const projectService = {
     }
   },
 
-  // 4. Obtener por ID
   getById: async (id: string): Promise<Project | undefined> => {
     try {
       const response = await fetch(`${API_URL}/id/${id}`);
@@ -71,12 +64,11 @@ export const projectService = {
     }
   },
 
-  // 5. Actualizar (PUT)
   update: async (id: string, projectData: Omit<Project, 'id' | 'createdAt'>): Promise<{ success: boolean }> => {
     try {
       const token = localStorage.getItem('lumireon_token');
       const response = await fetch(`${API_URL}/${id}`, {
-        method: 'PUT', // Usamos el método de actualización
+        method: 'PUT', 
         headers: { 
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}` 
@@ -92,7 +84,6 @@ export const projectService = {
     }
   },
 
-  // 6. Eliminar (DELETE)
   delete: async (id: string): Promise<{ success: boolean }> => {
     try {
       const token = localStorage.getItem('lumireon_token');

@@ -9,9 +9,10 @@
   --color-gray-dark: #5A5A5A;
   --color-orange: #E8692A;
   --color-orange-subtle: #FDF0E8;
-
-  /* Definimos tu tipografía Sans Serif */
   --font-sans: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+}
+html {
+  overflow-y: scroll;
 }
 
 :root {
@@ -29,7 +30,7 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Solo dejamos lo esencial, Tailwind se encarga del resto */
+
 body {
   margin: 0;
   min-width: 320px;

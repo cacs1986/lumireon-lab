@@ -6,6 +6,7 @@ import DialogBox from "../../components/public/DialogBox";
 export default function ProyectoDetalle() {
   const { slug } = useParams();
   const { project, loading, error } = useProject(slug);
+  const isAuthenticated = !!localStorage.getItem('lumireon_token');
 
   if (loading) return <div className="py-12 text-center text-gray-dark font-sans animate-pulse">Cargando proyecto...</div>;
   if (error || !project) return (
@@ -19,9 +20,21 @@ export default function ProyectoDetalle() {
 
   return (
     <article className="max-w-3xl mx-auto px-6 space-y-8 pb-12 mt-10">
-      <Link to="/laboratorio" className="text-sm font-sans text-gray-dark hover:text-orange transition-colors">
-        ← Volver al laboratorio
-      </Link>
+      
+      <div className="flex justify-between items-center">
+        <Link to="/laboratorio" className="text-sm font-sans text-gray-dark hover:text-orange transition-colors">
+          ← Volver al laboratorio
+        </Link>
+
+        {isAuthenticated && (
+          <Link 
+            to={`/admin/proyecto/editar/${project.id}`} 
+            className="text-xs font-bold text-orange border border-orange/50 px-3 py-1.5 rounded hover:bg-orange hover:text-white transition-colors flex items-center gap-2 shadow-sm"
+          >
+            ⚙️ Editar Proyecto
+          </Link>
+        )}
+      </div>
 
       <header className="space-y-4 border-b border-gray-soft pb-6">
         <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
@@ -41,7 +54,6 @@ export default function ProyectoDetalle() {
         </div>
       </header>
 
-      {/* IMAGEN DE PORTADA (Solo se muestra si existe) */}
       {project.imagen_url && (
         <div className="w-full aspect-video md:aspect-[21/9] rounded-xl overflow-hidden border-2 border-gray-soft bg-bone shadow-sm my-8">
           <img 
@@ -52,7 +64,6 @@ export default function ProyectoDetalle() {
         </div>
       )}
 
-      {/* BOTÓN AL REPOSITORIO (Solo se muestra si existe) */}
       {project.repositorio_url && (
         <div className="mb-8">
           <a 
@@ -92,9 +103,11 @@ export default function ProyectoDetalle() {
             <div className="bg-gray-dark px-4 py-2 text-xs font-bold text-gray-soft font-mono flex justify-between">
               <span>CÓDIGO FUENTE (C++)</span>
             </div>
-            <div className="p-4 overflow-x-auto text-sm text-white font-mono prose prose-invert max-w-none">
+            
+            <div className="p-4 overflow-auto max-h-[400px] text-sm text-white font-mono prose prose-invert max-w-none">
               <ReactMarkdown>{`\`\`\`cpp\n${project.codigo_snippet}\n\`\`\``}</ReactMarkdown>
             </div>
+            
           </section>
         )}
 
