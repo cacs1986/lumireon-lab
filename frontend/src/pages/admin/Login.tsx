@@ -10,8 +10,6 @@ export default function Login() {
   useEffect(() => {
     const token = localStorage.getItem('lumireon_token');
     if (token) {
-      // Si ya hay token, lo mandamos al panel sin escalas.
-      // El "replace: true" borra el historial para que no pueda volver atrás con la flecha del navegador.
       navigate("/admin/dashboard", { replace: true }); 
     }
   }, [navigate]);
