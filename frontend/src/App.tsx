@@ -46,18 +46,21 @@ export default function App() {
           <Route path="sobre" element={<Sobre />} />
         </Route>
 
-        <Route path="/admin" element={<AdminLayout />}>
+       <Route path="/admin">
+       
           <Route index element={<Login />} />
           
           <Route element={<ProtectedRoute />}>
-            <Route path="dashboard" element={<Dashboard />} /> 
-            <Route path="proyecto/nuevo" element={<AdminProyecto />} />
-            <Route path="proyecto/editar/:id" element={<AdminProyecto />} />
-            <Route path="notas" element={<AdminNotas />} />
-            <Route path="materiales" element={<AdminMateriales />} />
+            <Route element={<AdminLayout />}>
+              <Route path="dashboard" element={<Dashboard />} /> 
+              <Route path="proyecto/nuevo" element={<AdminProyecto />} />
+              <Route path="proyecto/editar/:id" element={<AdminProyecto />} />
+              <Route path="notas" element={<AdminNotas />} />
+              <Route path="materiales" element={<AdminMateriales />} />
+            </Route>
           </Route>
-          
         </Route>
+
       </Routes>
     </BrowserRouter>
   );
