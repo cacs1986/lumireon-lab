@@ -201,6 +201,10 @@ app.delete('/api/projects/:id', verificarToken, async (req, res) => {
 // ==========================================
 //        RUTAS DEL CRUD DE NOTAS 
 // ==========================================
+app.get('/api/ping', (req, res) => {
+  res.status(200).json({ message: 'Servidor despierto' });
+});
+
 
 app.post('/api/notes', verificarToken, async (req, res) => {
   const { title, content } = req.body;
