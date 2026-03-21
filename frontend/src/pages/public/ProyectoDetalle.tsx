@@ -80,7 +80,7 @@ export default function ProyectoDetalle() {
       <div className="space-y-12">
         
         <DialogBox 
-          characterImage="/lumi-welcome.png" 
+          characterImage="/lumi-welcome.webp" 
           title="Contexto"
         >
           <ReactMarkdown>{project.context}</ReactMarkdown>
@@ -117,7 +117,7 @@ export default function ProyectoDetalle() {
         </section>
 
         <DialogBox 
-          characterImage="/lumi-success.png" 
+          characterImage="/lumi-success.webp" 
           title="Aprendizajes Clave"
         >
           <ReactMarkdown>{project.learnings}</ReactMarkdown>

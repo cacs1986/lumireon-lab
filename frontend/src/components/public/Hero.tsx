@@ -33,7 +33,7 @@ export default function Hero() {
 
       <div className="w-full -mt-24 md:-mt-64 relative z-0 flex justify-end pointer-events-none">
         <img 
-          src="/hero-desktop.png" 
+          src="/hero-desktop.webp" 
           alt="Lumireon explorando el laboratorio" 
           className="w-full h-auto max-h-[350px] md:max-h-[500px] object-contain object-right-bottom pointer-events-auto" 
         />

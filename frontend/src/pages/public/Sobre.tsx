@@ -27,7 +27,7 @@ export default function Sobre() {
         </div>
         <div className="flex flex-col md:flex-row gap-6 items-start mt-2">
           <div className="w-16 h-16 flex-shrink-0 bg-bone rounded-lg border border-gray-soft flex items-center justify-center overflow-hidden">
-            <img src="/lumii.JPG" alt="Lumireon" className="w-10 h-10 object-contain opacity-80" />
+            <img src="/lumii.webp" alt="Lumireon" className="w-10 h-10 object-contain opacity-80" />
           </div>
           <div className="space-y-4 text-gray-dark font-sans leading-relaxed">
             <p className="italic text-lg font-medium text-carbon">
