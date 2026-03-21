@@ -52,6 +52,7 @@ async function crearTablas() {
         learnings TEXT NOT NULL,
         status TEXT DEFAULT 'En evolución',
         tags TEXT,
+        tipo TEXT DEFAULT 'personal', 
         created_at DATETIME DEFAULT CURRENT_TIMESTAMP
       )
     `);
@@ -87,6 +88,13 @@ async function crearTablas() {
 
     console.log('Tablas en Turso verificadas/creadas.');
 
+    try {
+      await db.execute(`ALTER TABLE projects ADD COLUMN tipo TEXT DEFAULT 'personal'`);
+      console.log("Columna 'tipo' agregada a projects.");
+    } catch (e) {
+      // Si la columna ya existe, ignora el error y sigue.
+    }
+
     const adminEmail = process.env.ADMIN_EMAIL;
     const plainPassword = process.env.ADMIN_PASSWORD;
 
@@ -118,14 +126,14 @@ crearTablas();
 // ==========================================
 
 app.post('/api/projects', verificarToken, async (req, res) => {
-  const { title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags } = req.body;
+  const { title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags, tipo } = req.body;
   const id = crypto.randomUUID();
   const tagsString = Array.isArray(tags) ? tags.join(',') : '';
   
   try {
     await db.execute({
-      sql: `INSERT INTO projects (id, title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      args: [id, title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tagsString]
+      sql: `INSERT INTO projects (id, title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      args: [id, title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tagsString, tipoProyecto]
     });
     res.status(201).json({ message: 'Proyecto guardado con éxito', id });
   } catch (err) {
@@ -173,13 +181,14 @@ app.get('/api/projects/:slug', async (req, res) => {
 
 app.put('/api/projects/:id', verificarToken, async (req, res) => {
   const { id } = req.params;
-  const { title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags } = req.body;
+  const { title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags, tipo } = req.body;
   const tagsString = Array.isArray(tags) ? tags.join(',') : '';
+  const tipoProyecto = tipo || 'personal';
   
   try {
     const result = await db.execute({
-      sql: `UPDATE projects SET title = ?, slug = ?, imagen_url = ?, repositorio_url = ?, codigo_snippet = ?, context = ?, problem = ?, process = ?, difficulties = ?, learnings = ?, status = ?, tags = ? WHERE id = ?`,
-      args: [title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tagsString, id]
+      sql: `UPDATE projects SET title = ?, slug = ?, imagen_url = ?, repositorio_url = ?, codigo_snippet = ?, context = ?, problem = ?, process = ?, difficulties = ?, learnings = ?, status = ?, tags = ?, tipo = ? WHERE id = ?`,
+      args: [title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tagsString, tipoProyecto, id]
     });
     if (result.rowsAffected === 0) return res.status(404).json({ error: 'Proyecto no encontrado' });
     res.json({ message: 'Proyecto actualizado con éxito' });
