@@ -159,15 +159,14 @@ export default function AdminProyecto() {
             </select>
           </div>
           
-          {/* NUEVO CAMPO: CATEGORÍA (TIPO) */}
           <div className="space-y-2">
             <label className="block text-sm font-bold text-carbon">Categoría</label>
             <select 
               name="tipo" value={formData.tipo} onChange={handleChange}
               className="w-full border border-gray-soft rounded px-3 py-2 text-carbon focus:border-orange focus:ring-1 focus:ring-orange outline-none bg-white font-bold"
             >
-              <option value="personal">👨‍💻 Proyecto Personal</option>
-              <option value="pedagogico">🎓 Proyecto Pedagógico (Aula)</option>
+              <option value="personal">Proyecto Personal</option>
+              <option value="pedagogico">Proyecto Pedagógico (Aula)</option>
             </select>
           </div>
 
