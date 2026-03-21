@@ -17,6 +17,7 @@ export default function AdminProyecto() {
     codigo_snippet: "",
     status: "En evolución" as ProjectStatus,
     tags: "", 
+    tipo: "personal", // NUEVO CAMPO AGREGADO
     context: "",
     problem: "",
     process: "",
@@ -34,9 +35,10 @@ export default function AdminProyecto() {
             slug: proyectoData.slug,
             imagen_url: proyectoData.imagen_url || "",           
             repositorio_url: proyectoData.repositorio_url || "", 
-            codigo_snippet: "",
+            codigo_snippet: proyectoData.codigo_snippet || "",
             status: proyectoData.status as ProjectStatus,
-            tags: proyectoData.tags.join(', '), 
+            tags: proyectoData.tags ? proyectoData.tags.join(', ') : "", 
+            tipo: proyectoData.tipo || "personal", // RECUPERA EL TIPO SI EXISTE
             context: proyectoData.context,
             problem: proyectoData.problem,
             process: proyectoData.process,
@@ -156,7 +158,20 @@ export default function AdminProyecto() {
               <option value="Replanteado">Replanteado</option>
             </select>
           </div>
+          
+          {/* NUEVO CAMPO: CATEGORÍA (TIPO) */}
           <div className="space-y-2">
+            <label className="block text-sm font-bold text-carbon">Categoría</label>
+            <select 
+              name="tipo" value={formData.tipo} onChange={handleChange}
+              className="w-full border border-gray-soft rounded px-3 py-2 text-carbon focus:border-orange focus:ring-1 focus:ring-orange outline-none bg-white font-bold"
+            >
+              <option value="personal">👨‍💻 Proyecto Personal</option>
+              <option value="pedagogico">🎓 Proyecto Pedagógico (Aula)</option>
+            </select>
+          </div>
+
+          <div className="space-y-2 md:col-span-2">
             <label className="block text-sm font-bold text-carbon">Etiquetas (separadas por coma)</label>
             <input 
               type="text" name="tags" value={formData.tags} onChange={handleChange}

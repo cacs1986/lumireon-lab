@@ -14,5 +14,6 @@ export interface Project {
   learnings: string;
   status: string;
   tags: string[];
+  tipo: string;
   createdAt?: string;
 }
