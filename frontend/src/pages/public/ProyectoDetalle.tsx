@@ -78,28 +78,31 @@ export default function ProyectoDetalle() {
 
       {/* PORTAL EXCLUSIVO PARA LA POKÉDEX */}
       {project.slug === 'pokedex-lumireon' && (
-        <div className="mb-8 md:mb-12 p-6 sm:p-8 md:p-10 bg-orange-subtle border-2 border-orange/50 rounded-2xl text-center shadow-sm relative overflow-hidden">
+        <div className="mb-8 md:mb-12 p-5 md:p-10 bg-orange-subtle border-2 border-orange/50 rounded-2xl text-center shadow-sm relative overflow-hidden">
 
-          {/* Un adorno visual de fondo con Google Icons escalable */}
-          <div className="absolute -right-4 -bottom-4 text-[100px] sm:text-[150px] text-orange/10 pointer-events-none select-none transition-all">
+          {/* Ícono de fondo: Mucho más chico en mobile para que no ensucie */}
+          <div className="absolute -right-4 -bottom-4 text-[80px] md:text-[150px] text-orange/10 pointer-events-none select-none transition-all">
             <span className="material-symbols-outlined text-[inherit]">
               sports_esports
             </span>
           </div>
 
-          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-carbon mb-3 relative z-10 transition-all">
+          {/* Título: Salto drástico de 20px (xl) a 36px (4xl) */}
+          <h3 className="text-xl md:text-4xl font-bold text-carbon mb-2 md:mb-4 relative z-10 transition-all leading-tight px-2">
             ¡El proyecto está vivo!
           </h3>
 
-          <p className="text-sm sm:text-base text-gray-dark mb-6 sm:mb-8 font-sans relative z-10 max-w-2xl mx-auto transition-all">
+          {/* Párrafo: De 14px (sm) a 16px (base) pero restringiendo el ancho en mobile al 90% */}
+          <p className="text-sm md:text-base text-gray-dark mb-6 md:mb-8 font-sans relative z-10 w-[90%] md:max-w-2xl mx-auto transition-all">
             No te quedes solo en la teoría. Entrá a probar la aplicación interactiva real consumiendo la API.
           </p>
 
+          {/* Botón: Texto más chico en mobile (sm) y ocupa el 100% del ancho (w-full) */}
           <Link
             to="/pokedex"
-            className="relative z-10 flex sm:inline-flex justify-center items-center gap-2 bg-orange text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-bold font-sans hover:bg-orange/90 transition-all hover:-translate-y-1 hover:shadow-lg text-base sm:text-lg w-full sm:w-auto"
+            className="relative z-10 flex md:inline-flex justify-center items-center gap-2 bg-orange text-white px-5 py-3 md:px-8 md:py-4 rounded-xl font-bold font-sans hover:bg-orange/90 transition-all hover:-translate-y-1 hover:shadow-lg text-sm md:text-lg w-full md:w-auto"
           >
-            <span className="material-symbols-outlined text-lg sm:text-xl">
+            <span className="material-symbols-outlined text-base md:text-xl">
               catching_pokemon
             </span>
             Abrir Pokédex Interactiva
