@@ -5,6 +5,14 @@ export interface Pokemon {
   types: string[];
 }
 
+export interface EvolutionStep {
+  name: string;
+  image: string;
+  id: number;
+}
+
+export type EvolutionChain = EvolutionStep[];
+
 export interface PokeApiResponse {
   id: number;
   name: string;
@@ -21,4 +29,17 @@ export interface PokeApiResponse {
       name: string;
     };
   }>;
+}
+
+export interface EvolutionNode {
+  species: {
+    name: string;
+    url: string;
+  };
+  evolves_to: EvolutionNode[]; // <--- RECURSIVIDAD AQUÍ
+}
+
+// La respuesta completa del endpoint
+export interface EvolutionChainResponse {
+  chain: EvolutionNode;
 }

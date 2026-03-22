@@ -34,7 +34,7 @@ export default function Laboratorio() {
               : 'border-transparent text-gray-dark hover:text-carbon'
           }`}
         >
-          👨‍💻 Mis Proyectos
+          Mis Proyectos
         </button>
         <button
           onClick={() => setActiveTab('pedagogico')}
@@ -44,7 +44,7 @@ export default function Laboratorio() {
               : 'border-transparent text-gray-dark hover:text-carbon'
           }`}
         >
-          🎓 Recursos del Aula
+          Recursos del Aula
         </button>
       </div>
 

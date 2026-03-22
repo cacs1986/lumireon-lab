@@ -45,7 +45,7 @@ export default function App() {
           <Route path="notas" element={<Notas />} />
           <Route path="materiales" element={<Materiales />} />
           <Route path="sobre" element={<Sobre />} />
-          <Route path="/pokedex" element={<Pokedex />} />
+          <Route path="pokedex" element={<Pokedex />} />
         </Route>
 
        <Route path="/admin">

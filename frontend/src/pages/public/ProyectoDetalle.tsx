@@ -77,6 +77,34 @@ export default function ProyectoDetalle() {
         </div>
       )}
 
+{/* PORTAL EXCLUSIVO PARA LA POKÉDEX */}
+      {project.slug === 'pokedex-lumireon' && (
+        <div className="mb-12 p-8 bg-orange-subtle border-2 border-orange/50 rounded-2xl text-center shadow-sm relative overflow-hidden">
+          {/* Un adorno visual de fondo con Google Icons */}
+          <div className="absolute -right-4 -bottom-4 text-[150px] text-orange/10 pointer-events-none select-none">
+            <span className="material-symbols-outlined text-[inherit]">
+              sports_esports
+            </span>
+          </div>
+          
+          <h3 className="text-2xl font-bold text-carbon mb-2 relative z-10">
+            ¡El proyecto está vivo!
+          </h3>
+          <p className="text-gray-dark mb-6 font-sans relative z-10">
+            No te quedes solo en la teoría. Entrá a probar la aplicación interactiva real consumiendo la API.
+          </p>
+          <Link 
+            to="/pokedex" 
+            className="relative z-10 inline-flex items-center gap-2 bg-orange text-white px-8 py-4 rounded-xl font-bold font-sans hover:bg-orange/90 transition-all hover:-translate-y-1 hover:shadow-lg text-lg"
+          >
+            <span className="material-symbols-outlined text-xl">
+              catching_pokemon
+            </span>
+            Abrir Pokédex Interactiva
+          </Link>
+        </div>
+      )}
+
       <div className="space-y-12">
         
         <DialogBox 
