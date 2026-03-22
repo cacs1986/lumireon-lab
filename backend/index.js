@@ -129,6 +129,7 @@ app.post('/api/projects', verificarToken, async (req, res) => {
   const { title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags, tipo } = req.body;
   const id = crypto.randomUUID();
   const tagsString = Array.isArray(tags) ? tags.join(',') : '';
+  const tipoProyecto = tipo || 'personal';
   
   try {
     await db.execute({

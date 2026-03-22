@@ -17,7 +17,7 @@ export default function AdminProyecto() {
     codigo_snippet: "",
     status: "En evolución" as ProjectStatus,
     tags: "", 
-    tipo: "personal", // NUEVO CAMPO AGREGADO
+    tipo: "personal", 
     context: "",
     problem: "",
     process: "",
