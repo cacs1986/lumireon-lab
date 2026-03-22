@@ -1,7 +1,7 @@
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { useProject } from "../../hooks/useProject";
-import DialogBox from "../../components/public/DialogBox"; 
+import DialogBox from "../../components/public/DialogBox";
 
 export default function ProyectoDetalle() {
   const { slug } = useParams();
@@ -20,15 +20,15 @@ export default function ProyectoDetalle() {
 
   return (
     <article className="max-w-3xl mx-auto px-6 space-y-8 pb-12 mt-10">
-      
+
       <div className="flex justify-between items-center">
         <Link to="/laboratorio" className="text-sm font-sans text-gray-dark hover:text-orange transition-colors">
           ← Volver al laboratorio
         </Link>
 
         {isAuthenticated && (
-          <Link 
-            to={`/admin/proyecto/editar/${project.id}`} 
+          <Link
+            to={`/admin/proyecto/editar/${project.id}`}
             className="text-xs font-bold text-orange border border-orange/50 px-3 py-1.5 rounded hover:bg-orange hover:text-white transition-colors flex items-center gap-2 shadow-sm"
           >
             ⚙️ Editar Proyecto
@@ -39,9 +39,8 @@ export default function ProyectoDetalle() {
       <header className="space-y-4 border-b border-gray-soft pb-6">
         <div className="flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
           <h1 className="text-4xl font-bold text-carbon tracking-tight">{project.title}</h1>
-          <span className={`inline-block self-start rounded px-2.5 py-1 text-xs font-bold uppercase tracking-wider font-sans ${
-            project.status === 'En evolución' ? 'bg-orange-subtle text-orange' : 'bg-gray-soft text-gray-dark'
-          }`}>
+          <span className={`inline-block self-start rounded px-2.5 py-1 text-xs font-bold uppercase tracking-wider font-sans ${project.status === 'En evolución' ? 'bg-orange-subtle text-orange' : 'bg-gray-soft text-gray-dark'
+            }`}>
             {project.status}
           </span>
         </div>
@@ -56,19 +55,19 @@ export default function ProyectoDetalle() {
 
       {project.imagen_url && (
         <div className="w-full aspect-video md:aspect-[21/9] rounded-xl overflow-hidden border-2 border-gray-soft bg-bone shadow-sm my-8">
-          <img 
-            src={project.imagen_url} 
-            alt={`Portada de ${project.title}`} 
-            className="w-full h-full object-cover" 
+          <img
+            src={project.imagen_url}
+            alt={`Portada de ${project.title}`}
+            className="w-full h-full object-cover"
           />
         </div>
       )}
 
       {project.repositorio_url && (
         <div className="mb-8">
-          <a 
-            href={project.repositorio_url} 
-            target="_blank" 
+          <a
+            href={project.repositorio_url}
+            target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 bg-carbon text-white px-5 py-2.5 rounded-lg font-bold font-sans hover:bg-orange transition-colors shadow-sm"
           >
@@ -77,27 +76,30 @@ export default function ProyectoDetalle() {
         </div>
       )}
 
-{/* PORTAL EXCLUSIVO PARA LA POKÉDEX */}
+      {/* PORTAL EXCLUSIVO PARA LA POKÉDEX */}
       {project.slug === 'pokedex-lumireon' && (
-        <div className="mb-12 p-8 bg-orange-subtle border-2 border-orange/50 rounded-2xl text-center shadow-sm relative overflow-hidden">
-          {/* Un adorno visual de fondo con Google Icons */}
-          <div className="absolute -right-4 -bottom-4 text-[150px] text-orange/10 pointer-events-none select-none">
+        <div className="mb-8 md:mb-12 p-6 sm:p-8 md:p-10 bg-orange-subtle border-2 border-orange/50 rounded-2xl text-center shadow-sm relative overflow-hidden">
+
+          {/* Un adorno visual de fondo con Google Icons escalable */}
+          <div className="absolute -right-4 -bottom-4 text-[100px] sm:text-[150px] text-orange/10 pointer-events-none select-none transition-all">
             <span className="material-symbols-outlined text-[inherit]">
               sports_esports
             </span>
           </div>
-          
-          <h3 className="text-2xl font-bold text-carbon mb-2 relative z-10">
+
+          <h3 className="text-xl sm:text-2xl md:text-3xl font-bold text-carbon mb-3 relative z-10 transition-all">
             ¡El proyecto está vivo!
           </h3>
-          <p className="text-gray-dark mb-6 font-sans relative z-10">
+
+          <p className="text-sm sm:text-base text-gray-dark mb-6 sm:mb-8 font-sans relative z-10 max-w-2xl mx-auto transition-all">
             No te quedes solo en la teoría. Entrá a probar la aplicación interactiva real consumiendo la API.
           </p>
-          <Link 
-            to="/pokedex" 
-            className="relative z-10 inline-flex items-center gap-2 bg-orange text-white px-8 py-4 rounded-xl font-bold font-sans hover:bg-orange/90 transition-all hover:-translate-y-1 hover:shadow-lg text-lg"
+
+          <Link
+            to="/pokedex"
+            className="relative z-10 flex sm:inline-flex justify-center items-center gap-2 bg-orange text-white px-6 py-3 sm:px-8 sm:py-4 rounded-xl font-bold font-sans hover:bg-orange/90 transition-all hover:-translate-y-1 hover:shadow-lg text-base sm:text-lg w-full sm:w-auto"
           >
-            <span className="material-symbols-outlined text-xl">
+            <span className="material-symbols-outlined text-lg sm:text-xl">
               catching_pokemon
             </span>
             Abrir Pokédex Interactiva
@@ -106,9 +108,9 @@ export default function ProyectoDetalle() {
       )}
 
       <div className="space-y-12">
-        
-        <DialogBox 
-          characterImage="/lumi-welcome.webp" 
+
+        <DialogBox
+          characterImage="/lumi-welcome.webp"
           title="Contexto"
         >
           <ReactMarkdown>{project.context}</ReactMarkdown>
@@ -131,11 +133,11 @@ export default function ProyectoDetalle() {
             <div className="bg-gray-dark px-4 py-2 text-xs font-bold text-gray-soft font-mono flex justify-between">
               <span>CÓDIGO FUENTE (C++)</span>
             </div>
-            
+
             <div className="p-4 overflow-auto max-h-[400px] text-sm text-white font-mono prose prose-invert max-w-none">
               <ReactMarkdown>{`\`\`\`cpp\n${project.codigo_snippet}\n\`\`\``}</ReactMarkdown>
             </div>
-            
+
           </section>
         )}
 
@@ -144,8 +146,8 @@ export default function ProyectoDetalle() {
           <ReactMarkdown>{project.difficulties}</ReactMarkdown>
         </section>
 
-        <DialogBox 
-          characterImage="/lumi-success.webp" 
+        <DialogBox
+          characterImage="/lumi-success.webp"
           title="Aprendizajes Clave"
         >
           <ReactMarkdown>{project.learnings}</ReactMarkdown>
