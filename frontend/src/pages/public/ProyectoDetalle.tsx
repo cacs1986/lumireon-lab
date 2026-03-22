@@ -103,9 +103,6 @@ export default function ProyectoDetalle() {
             className="relative z-10 flex md:inline-flex justify-center items-center gap-2 bg-orange text-white px-5 py-3 md:px-8 md:py-4 rounded-xl font-bold font-sans hover:bg-orange/90 transition-all hover:-translate-y-1 hover:shadow-lg text-xs md:text-lg w-full md:w-auto"
           >
             {/* El ícono también lo bajamos a base en móvil */}
-            <span className="material-symbols-outlined text-base md:text-xl">
-              catching_pokemon
-            </span>
             <span className="whitespace-nowrap">Abrir Pokédex Interactiva</span>
           </Link>
         </div>
