@@ -1,8 +1,18 @@
+import { useState } from 'react'; // IMPORTANTE: Agregamos useState
 import { Link } from 'react-router-dom';
 import { useProjects } from '../../hooks/useProjects'; 
 
 export default function Laboratorio() {
   const { projects, loading, error } = useProjects();
+  // NUEVO ESTADO: Controla qué pestaña está activa. Por defecto mostramos los personales.
+  const [activeTab, setActiveTab] = useState<'personal' | 'pedagogico'>('personal');
+
+  // NUEVO FILTRO: Toma la lista completa y crea una sub-lista solo con los que coinciden con la pestaña activa.
+  // Si un proyecto viejo no tiene 'tipo' guardado, lo asume como 'personal'.
+  const filteredProjects = projects.filter(project => {
+    const projectType = project.tipo || 'personal'; 
+    return projectType === activeTab;
+  });
 
   return (
     <div className="space-y-8 animate-in fade-in duration-500 max-w-4xl mx-auto pb-12">
@@ -14,12 +24,44 @@ export default function Laboratorio() {
         </p>
       </header>
       
+      {/* NUEVO COMPONENTE: Pestañas de Navegación */}
+      <div className="flex space-x-4 border-b border-gray-soft pb-2">
+        <button
+          onClick={() => setActiveTab('personal')}
+          className={`pb-2 font-bold font-sans text-lg transition-colors border-b-2 ${
+            activeTab === 'personal' 
+              ? 'border-orange text-orange' 
+              : 'border-transparent text-gray-dark hover:text-carbon'
+          }`}
+        >
+          👨‍💻 Mis Proyectos
+        </button>
+        <button
+          onClick={() => setActiveTab('pedagogico')}
+          className={`pb-2 font-bold font-sans text-lg transition-colors border-b-2 ${
+            activeTab === 'pedagogico' 
+              ? 'border-orange text-orange' 
+              : 'border-transparent text-gray-dark hover:text-carbon'
+          }`}
+        >
+          🎓 Recursos del Aula
+        </button>
+      </div>
+
       {loading && <div className="py-12 text-center text-gray-dark font-sans animate-pulse">Cargando laboratorio...</div>}
       {error && <div className="py-12 text-center text-orange font-sans">{error}</div>}
 
-      {!loading && !error && (
+      {/* MENSAJE DE ESTADO VACÍO (Por si entran a una pestaña que aún no tiene proyectos) */}
+      {!loading && !error && filteredProjects.length === 0 && (
+        <div className="py-12 text-center text-gray-dark font-sans">
+          Aún no hay proyectos cargados en esta categoría.
+        </div>
+      )}
+
+      {!loading && !error && filteredProjects.length > 0 && (
         <div className="grid gap-8 py-4">
-          {projects.map((project) => (
+          {/* CAMBIO CRÍTICO: Usamos filteredProjects.map en lugar de projects.map */}
+          {filteredProjects.map((project) => (
             <article 
               key={project.id} 
               className="flex flex-col gap-3 rounded-lg border border-gray-soft bg-white p-6 shadow-sm transition-all hover:border-orange/50 hover:shadow-md"

@@ -31,10 +31,13 @@ export default function Hero() {
         </div>
       </div>
 
-      <div className="w-full -mt-24 md:-mt-64 relative z-0 flex justify-end pointer-events-none">
+      <div className="w-full -mt-24 md:-mt-64 relative z-0 flex justify-end pointer-events-none min-h-[350px] md:min-h-[500px]">
         <img 
           src="/hero-desktop.webp" 
           alt="Lumireon explorando el laboratorio" 
+          width="800" 
+          height="500" 
+          fetchPriority="high"
           className="w-full h-auto max-h-[350px] md:max-h-[500px] object-contain object-right-bottom pointer-events-auto" 
         />
       </div>
