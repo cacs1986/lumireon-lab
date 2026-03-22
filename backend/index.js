@@ -132,7 +132,7 @@ app.post('/api/projects', verificarToken, async (req, res) => {
   
   try {
     await db.execute({
-      sql: `INSERT INTO projects (id, title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      sql: `INSERT INTO projects (id, title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
       args: [id, title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tagsString, tipoProyecto]
     });
     res.status(201).json({ message: 'Proyecto guardado con éxito', id });
