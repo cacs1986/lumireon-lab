@@ -137,7 +137,10 @@ app.post('/api/projects', verificarToken, async (req, res) => {
     });
     res.status(201).json({ message: 'Proyecto guardado con éxito', id });
   } catch (err) {
-    res.status(400).json({ error: 'Error al guardar. ¿El slug ya existe?' });
+    // 1. Imprimimos el error real en la consola de Render para verlo nosotros
+    console.error("🔥 ERROR REAL AL INSERTAR PROYECTO:", err);
+    // 2. Se lo mandamos al frontend para que lo veas en la pantalla roja
+    res.status(400).json({ error: `Fallo la base de datos: ${err.message}` });
   }
 });
 
