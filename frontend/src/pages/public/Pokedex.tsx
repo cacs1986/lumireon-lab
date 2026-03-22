@@ -30,6 +30,10 @@ export default function Pokedex() {
   const [error, setError] = useState('');
   const [evolutionChain, setEvolutionChain] = useState<EvolutionChain>([]);
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const handleSearch = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!searchTerm.trim()) return;
