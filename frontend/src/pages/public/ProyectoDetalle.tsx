@@ -79,7 +79,7 @@ export default function ProyectoDetalle() {
       {project.rutaInterna && (
         <Link
           to={project.rutaInterna}
-          className="bg-orange text-white px-6 py-3 rounded-xl font-black flex items-center gap-2 hover:bg-orange/90 transition-all"
+          className="w-fit inline-flex justify-center items-center gap-2 bg-orange text-white px-6 py-3 rounded-xl font-black hover:bg-orange/90 transition-all hover:shadow-md"
         >
           {project.iconoPortal && (
             <span className="material-symbols-outlined">{project.iconoPortal}</span>

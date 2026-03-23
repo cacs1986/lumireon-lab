@@ -29,7 +29,7 @@ export default function Footer() {
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-orange"></span>
             </span>
-            v2.0.0
+            v2.1.0
           </div>
         </div>
 
