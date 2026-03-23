@@ -21,7 +21,7 @@ interface RegistroGantt {
 }
 
 export default function Planificador() {
-    // --- ESTADO DEL LABORATORIO (Base de datos de procesos) ---
+    // --- ESTADO DEL LABORATORIO ---
     const [procesosBase, setProcesosBase] = useState<OSProcess[]>(PROCESOS_POR_DEFECTO);
     const [nuevoForm, setNuevoForm] = useState({ nombre: '', llegada: 0, rafaga: 1, prioridad: 1 });
 
@@ -192,7 +192,7 @@ export default function Planificador() {
             if (debeExpropiar) {
                 cpu.estado = 'LISTO';
                 listos.push(cpu); 
-                ordenarCola(listos); // Reordenamos con el expulsado adentro
+                ordenarCola(listos); 
                 cpu = null; 
             }
         }
@@ -205,7 +205,6 @@ export default function Planificador() {
             }
         }
 
-        // FASE 4: GUARDAR EL ESTADO
         setRelojGlobal(proximoTiempo);
         setQuantumRestante(proxQuantum);
         setColaNuevos(nuevos);
@@ -215,7 +214,6 @@ export default function Planificador() {
         setHistorialGantt([...historialGantt, nuevoRegistroGantt]); 
     };
 
-    // Componente visual miniatura para las colas
     const TarjetaProceso = ({ p }: { p: OSProcess }) => (
         <div className="bg-bone px-3 py-2 rounded border border-gray-soft flex items-center justify-between text-xs shadow-sm">
             <div className="flex items-center gap-2">
@@ -230,7 +228,6 @@ export default function Planificador() {
     return (
         <div className="min-h-screen bg-bone p-4 md:p-8 font-sans text-carbon flex flex-col gap-6">
             
-            {/* HEADER CONFIGURACIÓN */}
             <header className="flex flex-col md:flex-row justify-between items-center bg-white p-6 rounded-2xl shadow-sm border border-gray-soft">
                 <div className="text-center md:text-left mb-4 md:mb-0">
                     <h1 className="text-3xl font-black text-orange tracking-tight">Simulador de Procesos</h1>
@@ -282,7 +279,6 @@ export default function Planificador() {
                 </div>
             </header>
 
-            {/* LABORATORIO Y TABLA DE DATOS (Solo visible si no está corriendo o como referencia) */}
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-soft w-full">
                 <h3 className="font-bold text-carbon text-lg tracking-tight mb-4 flex items-center justify-between">
                     <span className="flex items-center gap-2">
@@ -325,7 +321,6 @@ export default function Planificador() {
                     </table>
                 </div>
 
-                {/* FORMULARIO PARA CREAR NUEVO PROCESO */}
                 {!simulacionIniciada && (
                     <form onSubmit={agregarProceso} className="mt-4 flex flex-wrap gap-4 items-end bg-gray-50 p-4 rounded-xl border border-gray-200">
                         <div className="flex flex-col gap-1">
@@ -351,10 +346,9 @@ export default function Planificador() {
                 )}
             </div>
 
-            {/* TABLERO DE COLAS (Arquitectura vertical para CPU/Listos) */}
+            {/* TABLERO DE COLAS */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                 
-                {/* Columna Izquierda: Entradas */}
                 <div className="bg-white p-4 rounded-xl border border-gray-soft shadow-sm h-full flex flex-col">
                     <h3 className="font-bold text-gray-mid text-sm uppercase tracking-widest mb-4">Cola de Nuevos</h3>
                     <div className="flex flex-col gap-2 overflow-y-auto pr-1 flex-grow">
@@ -363,7 +357,6 @@ export default function Planificador() {
                     </div>
                 </div>
 
-                {/* Columna Central: CPU arriba, Listos abajo */}
                 <div className="flex flex-col gap-6">
                     {/* CPU Y CONTROLES */}
                     <div className="bg-carbon p-5 rounded-2xl shadow-lg border border-gray-800 text-center relative flex flex-col justify-between min-h-[180px]">
@@ -391,7 +384,6 @@ export default function Planificador() {
                             </div>
                         </div>
                         
-                        {/* Botones de reproducción pegados a la CPU */}
                         <div className="mt-4 pt-4 border-t border-gray-700/50 flex flex-wrap justify-center gap-2">
                             {!simulacionIniciada ? (
                                 <button onClick={iniciarSimulacion} className="w-full bg-green-600 text-white px-4 py-2 rounded-lg font-bold hover:bg-green-700 transition-colors text-sm">
@@ -410,7 +402,6 @@ export default function Planificador() {
                         </div>
                     </div>
 
-                    {/* COLA DE LISTOS ABAJO DE LA CPU */}
                     <div className="bg-orange-50 p-4 rounded-xl border border-orange/20 shadow-sm flex-grow flex flex-col">
                         <h3 className="font-bold text-orange text-sm uppercase tracking-widest mb-4 flex justify-between items-center">
                             <span>Cola de Listos (RAM)</span>
@@ -423,7 +414,6 @@ export default function Planificador() {
                     </div>
                 </div>
 
-                {/* Columna Derecha: Terminados */}
                 <div className="bg-white p-4 rounded-xl border border-gray-soft shadow-sm h-full flex flex-col">
                     <h3 className="font-bold text-green-600 text-sm uppercase tracking-widest mb-4">Terminados</h3>
                     <div className="flex flex-col gap-2 overflow-y-auto pr-1 flex-grow">
@@ -439,7 +429,6 @@ export default function Planificador() {
 
             </div>
 
-            {/* DIAGRAMA DE GANTT */}
             <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-soft w-full overflow-hidden mt-2">
                 <h3 className="font-bold text-carbon text-lg tracking-tight mb-4 flex items-center gap-2">
                     <span className="material-symbols-outlined text-orange">timeline</span>
