@@ -76,28 +76,16 @@ export default function ProyectoDetalle() {
         </div>
       )}
 
-      {/* PORTAL GENÉRICO PARA PROYECTOS INTERACTIVOS */}
       {project.rutaInterna && (
-        <div className="mb-8 md:mb-12 p-5 md:p-10 bg-orange-subtle border-2 border-orange/50 rounded-2xl text-center shadow-sm relative overflow-hidden">
-
-          {/* Ícono dinámico de fondo */}
-          <div className="absolute -right-4 -bottom-4 text-[80px] md:text-[150px] text-orange/10 pointer-events-none select-none transition-all">
-            <span className="material-symbols-outlined text-[inherit]">
-              {project.iconoPortal || 'rocket_launch'} {/* rocket_launch es el fallback por si te olvidás de ponerlo */}
-            </span>
-          </div>
-
-          <p className="text-sm md:text-base text-gray-dark mb-6 md:mb-8 font-sans relative z-10 w-[90%] md:max-w-2xl mx-auto transition-all">
-            No te quedes solo en la teoría. Entrá a probar la aplicación interactiva real consumiendo sus funcionalidades.
-          </p>
-
-          <Link
-            to={project.rutaInterna}
-            className="relative z-10 flex md:inline-flex justify-center items-center gap-2 bg-orange text-white px-5 py-3 md:px-8 md:py-4 rounded-xl font-bold font-sans hover:bg-orange/90 transition-all hover:-translate-y-1 hover:shadow-lg text-xs md:text-lg w-full md:w-auto"
-          >
-            <span className="whitespace-nowrap">{project.textoAccion || 'Abrir Proyecto'}</span>
-          </Link>
-        </div>
+        <Link
+          to={project.rutaInterna}
+          className="bg-orange text-white px-6 py-3 rounded-xl font-black flex items-center gap-2 hover:bg-orange/90 transition-all"
+        >
+          {project.iconoPortal && (
+            <span className="material-symbols-outlined">{project.iconoPortal}</span>
+          )}
+          {project.textoAccion || "Abrir Proyecto"}
+        </Link>
       )}
 
       <div className="space-y-12">
