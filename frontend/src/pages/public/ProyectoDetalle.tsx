@@ -87,10 +87,6 @@ export default function ProyectoDetalle() {
             </span>
           </div>
 
-          <h3 className="text-xl md:text-4xl font-bold text-carbon mb-2 md:mb-4 relative z-10 transition-all leading-tight px-2">
-            ¡El proyecto está vivo!
-          </h3>
-
           <p className="text-sm md:text-base text-gray-dark mb-6 md:mb-8 font-sans relative z-10 w-[90%] md:max-w-2xl mx-auto transition-all">
             No te quedes solo en la teoría. Entrá a probar la aplicación interactiva real consumiendo sus funcionalidades.
           </p>
