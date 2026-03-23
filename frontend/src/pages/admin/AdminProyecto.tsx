@@ -18,6 +18,11 @@ export default function AdminProyecto() {
     status: "En evolución" as ProjectStatus,
     tags: "", 
     tipo: "personal", 
+    // --- NUEVOS CAMPOS INTERACTIVOS ---
+    rutaInterna: "",
+    textoAccion: "",
+    iconoPortal: "",
+    // ----------------------------------
     context: "",
     problem: "",
     process: "",
@@ -38,7 +43,12 @@ export default function AdminProyecto() {
             codigo_snippet: proyectoData.codigo_snippet || "",
             status: proyectoData.status as ProjectStatus,
             tags: proyectoData.tags ? proyectoData.tags.join(', ') : "", 
-            tipo: proyectoData.tipo || "personal", // RECUPERA EL TIPO SI EXISTE
+            tipo: proyectoData.tipo || "personal", 
+            // --- RECUPERA LOS CAMPOS SI EXISTEN ---
+            rutaInterna: proyectoData.rutaInterna || "",
+            textoAccion: proyectoData.textoAccion || "",
+            iconoPortal: proyectoData.iconoPortal || "",
+            // --------------------------------------
             context: proyectoData.context,
             problem: proyectoData.problem,
             process: proyectoData.process,
@@ -103,6 +113,7 @@ export default function AdminProyecto() {
 
       <form onSubmit={handleSubmit} className="space-y-8 bg-white p-6 rounded-lg border border-gray-soft shadow-sm font-sans">
         
+        {/* BLOQUE 1: DATOS GENERALES */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
             <label className="block text-sm font-bold text-carbon">Título del Proyecto</label>
@@ -180,8 +191,44 @@ export default function AdminProyecto() {
           </div>
         </div>
 
+        {/* BLOQUE 2: PORTAL INTERACTIVO (NUEVO) */}
+        <div className="bg-orange-subtle/30 border border-orange/30 p-5 rounded-xl space-y-4">
+          <div>
+            <h3 className="text-sm font-bold text-orange">🔌 Integración de App Interna (Opcional)</h3>
+            <p className="text-xs text-gray-dark mt-1">Si este proyecto tiene una interfaz interactiva alojada en el mismo portfolio (como un simulador), completá estos datos para crear el portal.</p>
+          </div>
+          
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div className="space-y-1">
+              <label className="block text-xs font-bold text-carbon">Ruta Interna</label>
+              <input 
+                type="text" name="rutaInterna" value={formData.rutaInterna} onChange={handleChange}
+                className="w-full border border-gray-soft rounded px-3 py-1.5 text-carbon focus:border-orange focus:ring-1 focus:ring-orange outline-none font-mono text-sm"
+                placeholder="Ej: /planificador"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="block text-xs font-bold text-carbon">Texto del Botón</label>
+              <input 
+                type="text" name="textoAccion" value={formData.textoAccion} onChange={handleChange}
+                className="w-full border border-gray-soft rounded px-3 py-1.5 text-carbon focus:border-orange focus:ring-1 focus:ring-orange outline-none text-sm"
+                placeholder="Ej: Abrir Simulador"
+              />
+            </div>
+            <div className="space-y-1">
+              <label className="block text-xs font-bold text-carbon">Ícono de Fondo</label>
+              <input 
+                type="text" name="iconoPortal" value={formData.iconoPortal} onChange={handleChange}
+                className="w-full border border-gray-soft rounded px-3 py-1.5 text-carbon focus:border-orange focus:ring-1 focus:ring-orange outline-none font-mono text-sm"
+                placeholder="Ej: memory o sports_esports"
+              />
+            </div>
+          </div>
+        </div>
+
         <hr className="border-gray-soft" />
 
+        {/* BLOQUE 3: TEXTOS Y MARKDOWN */}
         <div className="space-y-6">
           <div className="space-y-2">
             <label className="block text-sm font-bold text-carbon">Contexto</label>
@@ -215,7 +262,7 @@ export default function AdminProyecto() {
             <textarea 
               name="codigo_snippet" value={formData.codigo_snippet} onChange={handleChange} rows={6}
               className="w-full border border-gray-soft rounded px-3 py-2 text-carbon focus:border-orange focus:ring-1 focus:ring-orange outline-none resize-y font-mono text-xs bg-gray-50"
-              placeholder="Pega aquí tu código de Arduino directamente..."
+              placeholder="Pega aquí tu código directamente..."
             />
           </div>
 

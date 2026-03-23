@@ -7,6 +7,11 @@ export interface Project {
   imagen_url?: string;      
   repositorio_url?: string; 
   codigo_snippet?: string;
+
+  rutaInterna?: string;     
+  textoAccion?: string;     
+  iconoPortal?: string;    
+
   context: string;
   problem: string;
   process: string;

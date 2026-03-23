@@ -92,7 +92,15 @@ async function crearTablas() {
       await db.execute(`ALTER TABLE projects ADD COLUMN tipo TEXT DEFAULT 'personal'`);
       console.log("Columna 'tipo' agregada a projects.");
     } catch (e) {
-      // Si la columna ya existe, ignora el error y sigue.
+    }
+
+    const nuevasColumnas = ['rutaInterna', 'textoAccion', 'iconoPortal'];
+    for (const col of nuevasColumnas) {
+      try {
+        await db.execute(`ALTER TABLE projects ADD COLUMN ${col} TEXT`);
+        console.log(`Columna '${col}' agregada a projects.`);
+      } catch (e) {
+      }
     }
 
     const adminEmail = process.env.ADMIN_EMAIL;
@@ -126,21 +134,19 @@ crearTablas();
 // ==========================================
 
 app.post('/api/projects', verificarToken, async (req, res) => {
-  const { title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags, tipo } = req.body;
+  const { title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags, tipo, rutaInterna, textoAccion, iconoPortal } = req.body;
   const id = crypto.randomUUID();
   const tagsString = Array.isArray(tags) ? tags.join(',') : '';
   const tipoProyecto = tipo || 'personal';
   
   try {
     await db.execute({
-      sql: `INSERT INTO projects (id, title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags, tipo) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-      args: [id, title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tagsString, tipoProyecto]
+      sql: `INSERT INTO projects (id, title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags, tipo, rutaInterna, textoAccion, iconoPortal) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+      args: [id, title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tagsString, tipoProyecto, rutaInterna || null, textoAccion || null, iconoPortal || null]
     });
     res.status(201).json({ message: 'Proyecto guardado con éxito', id });
   } catch (err) {
-    // 1. Imprimimos el error real en la consola de Render para verlo nosotros
     console.error("🔥 ERROR REAL AL INSERTAR PROYECTO:", err);
-    // 2. Se lo mandamos al frontend para que lo veas en la pantalla roja
     res.status(400).json({ error: `Fallo la base de datos: ${err.message}` });
   }
 });
@@ -185,14 +191,14 @@ app.get('/api/projects/:slug', async (req, res) => {
 
 app.put('/api/projects/:id', verificarToken, async (req, res) => {
   const { id } = req.params;
-  const { title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags, tipo } = req.body;
+  const { title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tags, tipo, rutaInterna, textoAccion, iconoPortal } = req.body;
   const tagsString = Array.isArray(tags) ? tags.join(',') : '';
   const tipoProyecto = tipo || 'personal';
   
   try {
     const result = await db.execute({
-      sql: `UPDATE projects SET title = ?, slug = ?, imagen_url = ?, repositorio_url = ?, codigo_snippet = ?, context = ?, problem = ?, process = ?, difficulties = ?, learnings = ?, status = ?, tags = ?, tipo = ? WHERE id = ?`,
-      args: [title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tagsString, tipoProyecto, id]
+      sql: `UPDATE projects SET title = ?, slug = ?, imagen_url = ?, repositorio_url = ?, codigo_snippet = ?, context = ?, problem = ?, process = ?, difficulties = ?, learnings = ?, status = ?, tags = ?, tipo = ?, rutaInterna = ?, textoAccion = ?, iconoPortal = ? WHERE id = ?`,
+      args: [title, slug, imagen_url, repositorio_url, codigo_snippet, context, problem, process, difficulties, learnings, status, tagsString, tipoProyecto, rutaInterna || null, textoAccion || null, iconoPortal || null, id]
     });
     if (result.rowsAffected === 0) return res.status(404).json({ error: 'Proyecto no encontrado' });
     res.json({ message: 'Proyecto actualizado con éxito' });

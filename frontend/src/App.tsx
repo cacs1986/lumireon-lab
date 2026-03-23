@@ -15,6 +15,7 @@ import AdminNotas from "./pages/admin/AdminNotas";
 import AdminMateriales from "./pages/admin/AdminMateriales";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Pokedex from './pages/public/Pokedex'; 
+import Planificador from "./pages/public/Planificador";
 
 export default function App() {
   return (
@@ -46,6 +47,7 @@ export default function App() {
           <Route path="materiales" element={<Materiales />} />
           <Route path="sobre" element={<Sobre />} />
           <Route path="pokedex" element={<Pokedex />} />
+          <Route path="planificador" element={<Planificador />} />
         </Route>
 
        <Route path="/admin">
